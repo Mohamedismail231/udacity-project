@@ -72,7 +72,7 @@ def retryask(tm):
     m = input("do you want to retry? Y/N")
 
     if m == "Y" or m == "y":
-        os.execl(sys.executable, sys.executable, f'"{sys.argv[0]}"')
+        os.execl(sys.executable, sys.executable, sys.argv)
 
     elif m == "N" or m == "n":
         sys.exit(1)
@@ -399,7 +399,7 @@ while not pressed:
                         hp == 100
 
                         enemyhp == 400
-                        
+
                         joehp == 400
 
                         prause("that was easy")
@@ -437,7 +437,7 @@ while not pressed:
                                 FIGHTMODE("bow", "achoo")
 
                                 enemyhp == 1000
-                                
+
                                 score += 30
 
                                 prause(
