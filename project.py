@@ -26,6 +26,12 @@ inventory = {"sandwich": 1}
 
 weapon = {}
 
+broomdict = {"broom": 1}
+
+bowdict = {"bow": 1}
+
+sworddict = {"sword": 1}
+
 broomdamage = [5, 10, 15, 20]
 
 bowdamage = [10, 13, 18, 25]
@@ -60,7 +66,8 @@ def prause(words):
 
 
 def retryask(tm):
-    prause(f"you lose your score is {score} and you finished this ending in {tm}")
+    prause(
+        f"you lose your score is {score} and you finished this ending in {tm}")
 
     m = input("do you want to retry? Y/N")
 
@@ -104,9 +111,11 @@ def FIGHTMODE(hitthing, enemy):
     global enemyhp
 
     while (hp > 0 or joehp > 0) and enemyhp > 0:
-        broom_crit_chance = rnd.choices(population=broomdamage, weights=[40, 30, 20, 6])
+        broom_crit_chance = rnd.choices(
+            population=broomdamage, weights=[40, 30, 20, 6])
 
-        bow_crit_chance = rnd.choices(population=bowdamage, weights=[40, 30, 20, 6])[0]
+        bow_crit_chance = rnd.choices(
+            population=bowdamage, weights=[40, 30, 20, 6])[0]
 
         sword_crit_chance = rnd.choices(
             population=sworddamage, weights=[40, 40, 50, 30]
@@ -128,7 +137,8 @@ def FIGHTMODE(hitthing, enemy):
             0
         ]
 
-        joes_choose_chance = rnd.choices(population=joeturn_choose, weights=[40, 60])[0]
+        joes_choose_chance = rnd.choices(
+            population=joeturn_choose, weights=[40, 60])[0]
 
         enemychoose_chance = rnd.choices(
             population=enemyattackchoose, weights=[50, 50]
@@ -345,7 +355,7 @@ while not pressed:
 
                 pressed == False
 
-                weapon["broom"] += 1
+                weapon.update(broomdict)
 
                 prause("you grab the broom and ready yourself for a fight")
 
@@ -363,7 +373,8 @@ while not pressed:
                     if e == "y" or e == "Y":
                         pressed == True
 
-                        prause("joe gets angry AND HE WILL NOT LEAVE YOU TILL YOU DIE")
+                        prause(
+                            "joe gets angry AND HE WILL NOT LEAVE YOU TILL YOU DIE")
 
                         prause("FIGHTMODE ENGAGED")
 
@@ -374,7 +385,8 @@ while not pressed:
                     elif e == "n" or e == "N":
                         pressed == True
 
-                        prause("joe is happy to meet you and now he joins the party")
+                        prause(
+                            "joe is happy to meet you and now he joins the party")
 
                         prause("you continue your way to find the exit")
 
@@ -383,9 +395,11 @@ while not pressed:
                         FIGHTMODE("broom", "moth")
 
                         score += 20
-                       
+
                         hp == 100
 
+                        enemyhp == 400
+                        
                         joehp == 400
 
                         prause("that was easy")
@@ -398,10 +412,10 @@ while not pressed:
                             r = input("you find a bow would you take it? Y/N")
 
                             if r == "y" or r == "Y":
-                                
-                                del weapon["broom"] 
 
-                                weapon["bow"] += 1
+                                del weapon["broom"]
+
+                                weapon.update(bowdict)
 
                                 pressed == True
 
@@ -410,36 +424,47 @@ while not pressed:
                                 score += 30
 
                                 pressed == False
-                                
+
                                 prause(
                                     "YOUR ATTACK INCREASES AND YOUR DEFENSE INCREASES BY MAGIC OF 'take this you lucky guy'"
                                 )
 
                                 hp == 200
 
-                                prause("you continue and find a yellow ra from pokeyman called achoo")
+                                prause(
+                                    "you continue and find a yellow ra from pokeyman called achoo")
 
-                                FIGHTMODE("bow","achoo")
+                                FIGHTMODE("bow", "achoo")
 
+                                enemyhp == 1000
+                                
                                 score += 30
-                               
-                                prause("ah finally we finished this long battle also why did joe defend so much")
+
+                                prause(
+                                    "ah finally we finished this long battle also why did joe defend so much")
 
                                 prause("you continue and find a glowing cave")
 
                                 prause("you and joe get inside")
 
-                                prause("OH MY GOD ITS THE SWORD FROM DOOM ITS SO OP BRO")
+                                prause(
+                                    "OH MY GOD ITS THE SWORD FROM DOOM ITS SO OP BRO")
 
-                                prause("joe is very happy and he tells you to take it")
+                                del weapon["bow"]
+
+                                weapon.update(sworddict)
+
+                                prause(
+                                    "joe is very happy and he tells you to take it")
 
                                 prause("ATTACK INCREASES AND DEFENSE INCREASES")
 
                                 hp == 500
 
                                 score += 50
-                               
-                                prause("you and joe continue till you find the final exit from this creppy cave")
+
+                                prause(
+                                    "you and joe continue till you find the final exit from this creppy cave")
 
                                 prause("you aproach it...")
 
@@ -447,13 +472,15 @@ while not pressed:
 
                                 tm.sleep(4)
 
-                                prause("and steady while making yourself ready for an upcoming fight")
+                                prause(
+                                    "and steady while making yourself ready for an upcoming fight")
 
                                 prause("you feel it in your guts")
 
                                 prause("youre 4ft away from the door")
 
-                                prause("THE BLUE GOPRO FROM ULTRAKILL LANDS INFRONT OF YOU")
+                                prause(
+                                    "THE BLUE GOPRO FROM ULTRAKILL LANDS INFRONT OF YOU")
 
                                 FIGHTMODE("sword", "gopro")
 
@@ -462,7 +489,8 @@ while not pressed:
 
                                 prause("you and joe get out")
 
-                                prause("joe disguises as a human and you become friends with him till eternity")
+                                prause(
+                                    "joe disguises as a human and you become friends with him till eternity")
 
                                 et = tm.time()
 
@@ -472,18 +500,30 @@ while not pressed:
 
                                 dstr = str(d)
 
-                                print(F"YOU WIN YOUR SCORE IS {score} AND YOU FINISHED IN {dstr}")
+                                print(
+                                    F"YOU WIN YOUR SCORE IS {score} AND YOU FINISHED IN {dstr}")
 
                                 sys.exit(1)
 
                             elif r == "n" or r == "N":
                                 print("you dont take the bow")
 
-                                prause("G-man: prepare for unforseen consequences")
+                                prause(
+                                    "G-man: prepare for unforseen consequences")
 
-                                prause("gordon freeman jumps out of a portal and yeets you with his portal gun")
+                                prause(
+                                    "gordon freeman jumps out of a portal and yeets you with his portal gun")
 
                                 retrytime_record()
+
+                            else:
+                                pressed == False
+
+                    else:
+                        pressed == False
+
+            else:
+                pressed == False
 
     elif q == "N" or q == "n":
         pressed == True
@@ -497,3 +537,6 @@ while not pressed:
         prause("you're now her crush lol")
 
         retrytime_record()
+
+    else:
+        pressed == False
