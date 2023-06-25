@@ -1,58 +1,40 @@
 def script():
     # imports that are real important
 
+    import time as tm
     import datetime as dtm
     import random as rnd
-    import os
     import sys
-    import time as tm
 
     # vars for the start of game
+    pressed1 = False
 
-    pressed = False
+    pressed2 = False
+
+    pressed3 = False
+
+    pressed4 = False
+
+    pressed5 = False
 
     s = tm.time()
 
-
     score = 0
-
-
     hp = 100
-
     joehp = 400
-
     hunger = 100
-
     enemyhp = 50  # it will be modified for every enemy
-
     elaptime = 0
-
     inventory = {"sandwich": 1}
-
     weapon = {}
-
     broomdict = {"broom": 1}
-
     bowdict = {"bow": 1}
-
     sworddict = {"sword": 1}
-
     broomdamage = [5, 10, 15, 20]
-
     bowdamage = [10, 13, 18, 25]
-
     sworddamage = [90, 100, 200, 300]
-
     joedamage = [50, 60, 65, 100]
-
     joeturn_choose = ["attack", "defend"]
-
-    enemies = [
-        "moth",
-        "some yellow rat called achoo idk he from pokeyman",
-        "thefinal boss, the blue gopro looking robot that has some funni guns",
-    ]
-
     mothdamage = [10, 13, 14, 18]
 
     achoodamage = [20, 24, 26, 35]
@@ -61,30 +43,30 @@ def script():
 
     enemyattackchoose = ["you", "joe"]
 
-
     # defs to make the coding much easier
 
+    def print_l(script):
+        for letter in script:
+            print(letter, end='', flush=True)
+            tm.sleep(0.04)
 
-    def prause(words):
-        print(words)
-        tm.sleep(2)
-
+        tm.sleep(1)
 
     def retryask(tm):
-        prause(
-            f"you lose your score is {score} and you finished this ending in {tm}")
+        print_l(
+            f"you lose your score is {score} and you finished"
+            + f"this ending in {tm}\n")
 
-        m = input("do you want to retry? Y/N")
-        while not pressed:
+        m = input("do you want to retry? Y/N\n")
+        while not pressed1:
             if m == "Y" or m == "y":
                 script()
 
             elif m == "N" or m == "n":
                 sys.exit(1)
 
-
     def retrytime_record():
-        et = tm.time()
+        et = dtm.time()
 
         el = et - s
 
@@ -94,13 +76,11 @@ def script():
 
         retryask(dstr)
 
-
     yourturn = 1
 
     joeturn = 0
 
     enemyturn = 0
-
 
     def FIGHTMODE(hitthing, enemy):
         global yourturn
@@ -127,9 +107,10 @@ def script():
             )[0]
 
             moth_crit_chance = rnd.choices(population=mothdamage, weights=[40,
-                                                                        30, 20, 6])[
-                0
-            ]
+                                                                           30,
+                                                                           20,
+                                                                           6])
+            [0]
 
             achoo_crit_damage = rnd.choices(
                 population=achoodamage, weights=[40, 30, 20, 6]
@@ -139,9 +120,11 @@ def script():
                 population=theblugoprodamage, weights=[40, 30, 20, 6]
             )[0]
 
-            joes_crit_chance = rnd.choices(population=joedamage, weights=[50, 40, 40, 10])[
-                0
-            ]
+            joes_crit_chance = rnd.choices(population=joedamage, weights=[50,
+                                                                          40,
+                                                                          40,
+                                                                          10])
+            [0]
 
             joes_choose_chance = rnd.choices(
                 population=joeturn_choose, weights=[40, 60])[0]
@@ -150,42 +133,43 @@ def script():
                 population=enemyattackchoose, weights=[50, 50]
             )[0]
 
-            print(f"{hp=} {joehp=} {enemyhp=}")
+            print(f"{hp}= {joehp}= {enemyhp}=")
 
             if yourturn == 1:
                 decide = input(
-                    "ITS YOUR TURN YOU CAN EITHER A)ATTACK OR B)DEFEND(increases hp)"
+                    "ITS YOUR TURN YOU CAN EITHER A)ATTACK OR"
+                    + f"B)DEFEND(increases hp)"
                 )
 
                 if decide == "A" or decide == "a":
                     if hitthing == "broom":
-                        prause(f"YOU ATTACK ENEMY -{broom_crit_chance}")
+                        print(f"YOU ATTACK ENEMY -{broom_crit_chance}")
 
                         enemyhp -= broom_crit_chance[0]
 
-                        prause(f"ENEMY HP:{enemyhp}")
+                        print(f"ENEMY HP:{enemyhp}")
 
                         yourturn -= 1
 
                         joeturn += 1
 
                     elif hitthing == "bow":
-                        prause(f"YOU ATTACK ENEMY -{bow_crit_chance}")
+                        print(f"YOU ATTACK ENEMY -{bow_crit_chance}")
 
                         enemyhp -= bow_crit_chance
 
-                        prause(f"ENEMY HP:{enemyhp}")
+                        print(f"ENEMY HP:{enemyhp}")
 
                         yourturn -= 1
 
                         joeturn += 1
 
                     elif hitthing == "sword":
-                        prause(f"YOU ATTACK ENEMY -{sword_crit_chance}")
+                        print(f"YOU ATTACK ENEMY -{sword_crit_chance}")
 
                         enemyhp -= sword_crit_chance
 
-                        prause(f"ENEMY HP:{enemyhp}")
+                        print(f"ENEMY HP:{enemyhp}")
 
                         yourturn -= 1
 
@@ -199,12 +183,12 @@ def script():
                     joeturn += 1
 
             elif joeturn == 1:
-                prause("ITS JOE'S TURN")
+                print("ITS JOE'S TURN")
 
-                prause(f"JOE CHOOSES to{joes_choose_chance}")
+                print(f"JOE CHOOSES to{joes_choose_chance}")
 
                 if joes_choose_chance == "attack":
-                    prause(f"JOE ATTACKS -{joes_crit_chance}")
+                    print(f"JOE ATTACKS -{joes_crit_chance}")
 
                     enemyhp -= joes_crit_chance
 
@@ -213,7 +197,7 @@ def script():
                     enemyturn += 1
 
                 elif joes_choose_chance == "defend":
-                    prause(f"JOE DEFENDS")
+                    print(f"JOE DEFENDS")
 
                     joehp += 10
 
@@ -223,46 +207,46 @@ def script():
 
             elif enemyturn == 1:
                 if enemy == "moth" and enemychoose_chance == "you":
-                    prause(f"THE ENEMY ATTACKS YOU -{moth_crit_chance} ")
+                    print(f"THE ENEMY ATTACKS YOU -{moth_crit_chance} ")
 
                     hp -= moth_crit_chance
 
                     print(f"YOUR HP NOW IS {hp}")
 
                 elif enemy == "moth" and enemychoose_chance == "joe":
-                    prause(f"THE ENEMY ATTACKS JOE -{moth_crit_chance}")
+                    print(f"THE ENEMY ATTACKS JOE -{moth_crit_chance}")
 
                     joehp -= moth_crit_chance
 
                     print(f"JOES HP NOW IS {joehp}")
 
                 elif enemy == "achoo" and enemychoose_chance == "you":
-                    prause(f"THE ENEMY ATTACKS YOU -{achoo_crit_damage}")
+                    print(f"THE ENEMY ATTACKS YOU -{achoo_crit_damage}")
 
                     hp -= achoo_crit_damage
 
                     print(f"YOUR HP NOW IS {hp}")
 
                 elif enemy == "achoo" and enemychoose_chance == "joe":
-                    prause(f"THE ENEMY ATTACKS JOE -{achoo_crit_damage}")
+                    print(f"THE ENEMY ATTACKS JOE -{achoo_crit_damage}")
 
                     joehp -= achoo_crit_damage
 
-                    prause(f"JOES HP IS NOW {joehp}")
+                    print(f"JOES HP IS NOW {joehp}")
 
                 elif enemy == "gopro" and enemychoose_chance == "you":
-                    prause(f"THE ENEMY ATTACKS YOU -{gopro_crit_damage}")
+                    print(f"THE ENEMY ATTACKS YOU -{gopro_crit_damage}")
 
                     print(f"YOUR HP NOW IS {hp}")
 
                     hp -= gopro_crit_damage
 
                 elif enemy == "gopro" and enemychoose_chance == "joe":
-                    prause(f"THE ENEMY ATTACKS JOE -{gopro_crit_damage}")
+                    print(f"THE ENEMY ATTACKS JOE -{gopro_crit_damage}")
 
                     joehp -= gopro_crit_damage
 
-                    prause(f"JOES HP IS NOW {joehp}")
+                    print(f"JOES HP IS NOW {joehp}")
 
                 enemyturn -= 1
 
@@ -274,30 +258,31 @@ def script():
         elif enemyhp <= 0:
             print("YOU WIN")
 
-
     # now to the start of the game
 
-    prause("you are in the middle of a forest with some friends(paid actors)")
+    print_l("you are in the middle of a forest with some friends(paid actors)"
+            + "\n")
 
-    prause("you make a camp and then you play a game of truth or dare")
+    print_l("you make a camp and then you play a game of truth or dare\n")
 
-    prause("you get dared to sleep in the cave 2 miles away from the camp")
+    print_l("you get dared to sleep in the cave 2 miles away from the camp\n")
 
-    prause(
-        "if you didnt accept the dare, you'll pay for whatever they want for the next month"
+    print_l(
+        "if you didnt accept the dare, you'll pay for whatever they want for" +
+        " the next month\n"
     )
 
-    prause("so you go with 2 sandwiches")
+    print_l("so you go with 2 sandwiches\n")
 
-    prause("you enter the cave")
+    print_l("you enter the cave\n")
 
-    prause("you trip into a hole....")
+    print_l("you trip into a hole....")
 
-    prause("a big one")
+    print_l("a big one\n")
 
-    print("long ago two races ruled the world: monsters and humans-")
+    print_l("long ago two races ruled the world: monsters and humans-")
 
-    prause("oh sorry wrong game")
+    print_l("oh sorry wrong game\n")
 
     hunger -= 40
 
@@ -305,246 +290,178 @@ def script():
 
     score += 5
 
-    prause("you wake up and you're hurt and hungry")
+    print_l("you wake up and you're hurt and hungry\n")
 
+    while not pressed2:
+        q = input("So, would you eat a sandwich? (Y/N)\n")
 
-    while not pressed:
-        q = input(
-            "so would you eat a sandwich(heals 30 hp and increases hunger by 40 p)Y/N"
-        )
-
-        if q == "Y" or q == "y":
-            pressed == True
-
-            prause("you eat the sandwich")
-
-            hp == 100
-
-            hunger == 100
-
+        if q.lower() == "y":
+            pressed2 = True
+            print_l("You eat the sandwich\n")
+            hp = 100
+            hunger = 100
             score += 10
-
             inventory["sandwich"] -= 1
+            print_l("Refreshing...")
+            print_l("You continue your way\n")
+            print_l("You feel a strange aura\n")
+            print_l("You see a shadow of something human-like\n")
 
-            pressed == False
+            while not pressed3:
+                w = input("Would you A) scream or B) look for a weapon\n")
 
-            prause("refreshing")
-
-            prause("you continue your way")
-
-            prause("you feel a strange aura")
-
-            prause("you see a shadow of something human like")
-
-            w = input("would you A) scream or B) look for a weapon")
-
-            while not pressed:
-                if w == "A" or w == "a":
-                    pressed == True
-
-                    prause("you scream")
-
+                if w.lower() == "a":
+                    pressed3 = True
+                    print_l("You scream\n")
                     score += 5
-
-                    prause("the moster gets afraid and instantly kills you")
-
+                    print_l("The monster gets afraid and instantly kills you\n"
+                            )
                     retrytime_record()
 
-                elif w == "b" or w == "B":
-                    pressed == True
-
-                    prause("you look for a weapon")
-
-                    prause("you find a broom")
-
+                elif w.lower() == "b":
+                    pressed3 = True
+                    print_l("You look for a weapon\n")
+                    print_l("You find a broom\n")
                     score += 10
+                    inventory.append("broom")
+                    print_l("You grab the broom and ready yourself for a fight"
+                            + "\n")
+                    print_l("The monster sees you and understands your fear\n")
+                    print_l(
+                        "The monster gets out of the shadow and reveals itself"
+                        + " as Joe\n")
+                    print_l("Joe tells you not to say that stupid joke\n")
+                    e = input("So, would you say it or not? (Y/N)\n")
 
-                    pressed == False
-
-                    weapon.update(broomdict)
-
-                    prause("you grab the broom and ready yourself for a fight")
-
-                    prause("the monster sees you and understands your fear")
-
-                    prause("the monster gets out of the shadow and its a fish-human thing")
-
-                    prause("he introduces himself as joe")
-
-                    prause("joe tells you to not say that stupid joke")
-
-                    e = input("so would you say it or not Y/N")
-
-                    while not pressed:
-                        if e == "y" or e == "Y":
-                            pressed == True
-
-                            prause(
-                                "joe gets angry AND HE WILL NOT LEAVE YOU TILL YOU DIE")
-
-                            prause("FIGHTMODE ENGAGED")
-
-                            prause("JOE ATTACKS YOUR HP - 400")
-
+                    while not pressed4:
+                        if e.lower() == "y":
+                            pressed4 = True
+                            print_l(
+                                "Joe gets angry and he will not leave you till"
+                                + " you die\n")
+                            print_l("FIGHTMODE ENGAGED\n")
+                            print_l("Joe attacks your HP - 400\n")
                             retrytime_record()
 
-                        elif e == "n" or e == "N":
-                            pressed == True
-
-                            prause(
-                                "joe is happy to meet you and now he joins the party")
-
-                            prause("you continue your way to find the exit")
-
-                            prause("a bodybuilder sized mothe aproaches")
-
+                        elif e.lower() == "n":
+                            pressed4 = True
+                            print_l(
+                                "Joe is happy to meet you and now he joins the"
+                                + " party\n")
+                            print_l("You continue your way to find the exit\n")
+                            print_l("A bodybuilder-sized moth approaches\n")
                             FIGHTMODE("broom", "moth")
-
                             score += 20
+                            hp = 100
+                            enemyhp = 400
+                            joehp = 400
+                            print_l("That was easy\n")
+                            print_l("You continue your way\n")
 
-                            hp == 100
+                            while not pressed5:
+                                r = input(
+                                    "You find a bow. Would you take it? (Y/N)"
+                                    + "\n")
 
-                            enemyhp == 400
-
-                            joehp == 400
-
-                            prause("that was easy")
-
-                            prause("you continue your way")
-
-                            pressed == False
-
-                            while not pressed:
-                                r = input("you find a bow would you take it? Y/N")
-
-                                if r == "y" or r == "Y":
-
-                                    del weapon["broom"]
-
-                                    weapon.update(bowdict)
-
-                                    pressed == True
-
-                                    prause("you get the bow")
-
+                                if r.lower() == "y":
+                                    pressed5 = True
+                                    inventory.remove("broom")
+                                    inventory.append("bow")
+                                    print_l("You get the bow")
                                     score += 30
-
-                                    pressed == False
-
-                                    prause(
-                                        "YOUR ATTACK INCREASES AND YOUR DEFENSE INCREASES BY MAGIC OF 'take this you lucky guy'"
-                                    )
-
-                                    hp == 200
-
-                                    prause(
-                                        "you continue and find a yellow rat from pokeyman called achoo")
-
+                                    print_l(
+                                        "Your attack increases and your "
+                                        + "defense increases by the magic of "
+                                        + "'take this you lucky guy'\n")
+                                    hp = 200
+                                    print_l(
+                                        "You continue and find a yellow rat "
+                                        + "called Achoo from Pokeyman\n")
                                     FIGHTMODE("bow", "achoo")
-
-                                    enemyhp == 1000
-
+                                    enemyhp = 1000
                                     score += 30
-
-                                    prause(
-                                        "ah finally we finished this long battle also why did joe defend so much")
-
-                                    prause("you continue and find a glowing cave")
-
-                                    prause("you and joe get inside")
-
-                                    prause(
-                                        "OH MY GOD ITS THE SWORD FROM DOOM ITS SO OP BRO")
-
-                                    del weapon["bow"]
-
-                                    weapon.update(sworddict)
-
-                                    prause(
-                                        "joe is very happy and he tells you to take it")
-
-                                    prause("ATTACK INCREASES AND DEFENSE INCREASES")
-
-                                    hp == 500
-
+                                    print_l(
+                                        "Ah, finally we finished this long"
+                                        + " battle. Also, why did Joe defend"
+                                        + "so much?\n")
+                                    print_l(
+                                        "You continue and find a glowing cave"
+                                        + "\n")
+                                    print_l("You and Joe get inside\n")
+                                    print_l(
+                                        "OH MY GOD, IT'S THE SWORD FROM DOOM."
+                                        + "IT'S SO OP, BRO\n")
+                                    inventory.remove("bow")
+                                    inventory.append("sword")
+                                    print_l(
+                                        "Joe is very happy and he tells you to"
+                                        + " take it\n")
+                                    print_l(
+                                        "Attack increases and defense "
+                                        + "increases\n")
+                                    hp = 500
                                     score += 50
-
-                                    prause(
-                                        "you and joe continue till you find the final exit from this creppy cave")
-
-                                    prause("you aproach it...")
-
-                                    print("slow")
-
+                                    print_l(
+                                        "You and Joe continue till you find "
+                                        + "the final exit from this creepy"
+                                        + " cave\n")
+                                    print_l("You approach it...")
+                                    print("Slow...\n")
                                     tm.sleep(4)
-
-                                    prause(
-                                        "and steady while making yourself ready for an upcoming fight")
-
-                                    prause("you feel it in your guts")
-
-                                    prause("youre 4ft away from the door")
-
-                                    prause(
-                                        "THE BLUE GOPRO FROM ULTRAKILL LANDS INFRONT OF YOU")
-
+                                    print_l(
+                                        "And steady while making yourself "
+                                        + "ready for an upcoming fight\n")
+                                    print_l("You feel it in your guts\n")
+                                    print_l("You're 4ft away from the door\n")
+                                    print_l(
+                                        "THE BLUE GOPRO FROM ULTRAKILL LANDS"
+                                        + " IN FRONT OF YOU\n")
                                     FIGHTMODE("sword", "gopro")
-
                                     score += 100
-                                    prause("YEEEES LES GOOOOO")
-
-                                    prause("you and joe get out")
-
-                                    prause(
-                                        "joe disguises as a human and you become friends with him till eternity")
-
+                                    print_l("YEEEES LES GOOOOO\n")
+                                    print_l("You and Joe get out\n")
+                                    print_l(
+                                        "Joe disguises as a human and you "
+                                        + "become friends with him till "
+                                        + "eternity\n")
                                     et = tm.time()
-
                                     el = et - s
-
-                                    d = dtm.timedelta(seconds=el)
-
+                                    d = tm.timedelta(seconds=el)
                                     dstr = str(d)
-
                                     print(
-                                        F"YOU WIN YOUR SCORE IS {score} AND YOU FINISHED IN {dstr}")
-
+                                        F"YOU WIN! YOUR SCORE IS {score} AND"
+                                        + f"YOU FINISHED IN {dstr}")
                                     sys.exit(1)
 
-                                elif r == "n" or r == "N":
-                                    print("you dont take the bow")
-
-                                    prause(
-                                        "G-man: prepare for unforseen consequences")
-
-                                    prause(
-                                        "gordon freeman jumps out of a portal and yeets you with his portal gun")
-
+                                elif r.lower() == "n":
+                                    print_l("You don't take the bow")
+                                    print_l(
+                                        "G-man: Prepare for unforeseen "
+                                        + "consequences")
+                                    print_l(
+                                        "Gordon Freeman jumps out of a portal "
+                                        + "and yeets you with his portal gun")
                                     retrytime_record()
 
                                 else:
-                                    pressed == False
+                                    pressed5 = False
 
                         else:
-                            pressed == False
+                            pressed4 = False
 
                 else:
-                    pressed == False
-                
-        elif q == "N" or q == "n":
-            pressed == True
+                    pressed3 = False
 
-            prause("you dont eat the sandwich")
-
-            prause("you feel so hurt that you cant even move")
-
-            prause("a big rock falls on you and crushes you")
-
-            prause("you're now her crush lol")
-
+        elif q.lower() == "n":
+            pressed2 = True
+            print_l("You don't eat the sandwich")
+            print_l("You feel so hurt that you can't even move")
+            print_l("A big rock falls on you and crushes you")
+            print_l("You're now her crush, lol")
             retrytime_record()
 
         else:
-            pressed == False
+            pressed2 = False
+
 
 script()
