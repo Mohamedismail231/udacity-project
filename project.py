@@ -66,7 +66,7 @@ def script():
                 sys.exit(1)
 
     def retrytime_record():
-        et = dtm.time()
+        et = tm.time()
 
         el = et - s
 
@@ -323,7 +323,7 @@ def script():
                     print_l("You look for a weapon\n")
                     print_l("You find a broom\n")
                     score += 10
-                    inventory.append("broom")
+                    weapon.update(broomdict)
                     print_l("You grab the broom and ready yourself for a fight"
                             + "\n")
                     print_l("The monster sees you and understands your fear\n")
@@ -365,8 +365,8 @@ def script():
 
                                 if r.lower() == "y":
                                     pressed5 = True
-                                    inventory.remove("broom")
-                                    inventory.append("bow")
+                                    del weapon[broomdict]
+                                    weapon.update(bowdict)
                                     print_l("You get the bow")
                                     score += 30
                                     print_l(
@@ -391,8 +391,8 @@ def script():
                                     print_l(
                                         "OH MY GOD, IT'S THE SWORD FROM DOOM."
                                         + "IT'S SO OP, BRO\n")
-                                    inventory.remove("bow")
-                                    inventory.append("sword")
+                                    del weapon[bowdict]
+                                    weapon.update(sworddict)
                                     print_l(
                                         "Joe is very happy and he tells you to"
                                         + " take it\n")
