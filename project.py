@@ -20,8 +20,6 @@ def script():
     s = tm.time()
 
     score = 0
-    hp = 100
-    joehp = 400
     hunger = 100
     enemyhp = 50  # it will be modified for every enemy
     elaptime = 0
@@ -86,12 +84,10 @@ def script():
         global yourturn
 
         global joeturn
-
-        global enemyturn
-
-        global hp
-
-        global joehp
+      
+        hp = 100
+        
+        joehp = 400
 
         global enemyhp
 
